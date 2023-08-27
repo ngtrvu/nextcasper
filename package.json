@@ -1,0 +1,14 @@
+{
+  "name": "nextcasper",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Vu Nguyen",
+  "license": "",
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "qs": "^6.11.0"
+  }
+}
