@@ -1,4 +1,4 @@
-import GhostContentAPI from './content-api'
+import GhostContentAPI from '@tryghost/content-api'
 
 const getParamSerializer = (parameters) => {
   return Object.keys(parameters)
@@ -18,12 +18,13 @@ const fetchCall = async ({ url, method = 'GET', params, headers }) => {
   }
   return res.json()
 }
+
 // Create API instance with site credentials
 const api = new GhostContentAPI({
   url: process.env.NEXT_PUBLIC_GHOST_CONTENT_URL,
   key: process.env.NEXT_PUBLIC_GHOST_CONTENT_KEY,
   version: 'v5.0',
-  makeRequest: fetchCall,
+  makeRequest: fetchCall
 })
 
 const listPostFields = [
@@ -39,7 +40,7 @@ const listPostFields = [
   'reading_time',
   'excerpt',
   'published_at',
-  'updated_at',
+  'updated_at'
 ]
 
 export async function getPosts({ limit = 'all' }) {
@@ -48,7 +49,7 @@ export async function getPosts({ limit = 'all' }) {
       limit: limit,
       fields: listPostFields,
       include: ['tags', 'authors'],
-      order: ['featured DESC', 'published_at DESC'],
+      order: ['featured DESC', 'published_at DESC']
     })
     .catch((err) => {
       console.error(err)
@@ -62,7 +63,7 @@ export async function getPostsByTag(slug, { limit = 'all' }) {
       filter: `tag:${slug}`,
       fields: listPostFields,
       include: ['tags', 'authors'],
-      order: ['featured DESC', 'published_at DESC'],
+      order: ['featured DESC', 'published_at DESC']
     })
     .catch((err) => {
       console.error(err)
@@ -76,7 +77,7 @@ export async function getPostsByAuthor(slug, { limit = 'all' }) {
       filter: `author:${slug}`,
       fields: listPostFields,
       include: ['tags', 'authors'],
-      order: ['featured DESC', 'published_at DESC'],
+      order: ['featured DESC', 'published_at DESC']
     })
     .catch((err) => {
       console.error(err)
@@ -87,7 +88,7 @@ export async function getSinglePostBySlug(slug) {
   return await api.posts
     .read({
       slug,
-      include: ['tags', 'authors', 'count.posts'],
+      include: ['tags', 'authors', 'count.posts']
     })
     .catch((err) => {
       if (!err.response) {
@@ -102,7 +103,7 @@ export async function getSinglePostById(id) {
   return await api.posts
     .read({
       id,
-      include: ['tags', 'authors', 'count.posts'],
+      include: ['tags', 'authors', 'count.posts']
     })
     .catch((err) => {
       if (!err.response) {
@@ -116,7 +117,7 @@ export async function getSinglePostById(id) {
 export async function getPages() {
   return await api.pages
     .browse({
-      limit: 'all',
+      limit: 'all'
     })
     .catch((err) => {
       if (err && err.response && err.response.status > 500) {
@@ -131,7 +132,7 @@ export async function getSinglePage(slug) {
       slug,
       limit: 'all',
       order: ['featured DESC', 'published_at DESC'],
-      page: 1,
+      page: 1
     })
     .catch((err) => {
       if (!err.response) {
@@ -155,7 +156,7 @@ export function getSettings() {
 export async function getTags({ limit = 'all' }) {
   return await api.tags
     .browse({
-      limit: limit,
+      limit: limit
     })
     .catch((err) => {
       if (!err.response) {
@@ -169,7 +170,7 @@ export async function getTags({ limit = 'all' }) {
 export async function getTagBySlug(slug) {
   return await api.tags
     .read({
-      slug,
+      slug
     })
     .catch((err) => {
       if (!err.response) {
@@ -183,7 +184,7 @@ export async function getTagBySlug(slug) {
 export async function getAuthors({ limit = 'all' }) {
   return await api.authors
     .browse({
-      limit: limit,
+      limit: limit
     })
     .catch((err) => {
       if (!err.response) {
@@ -197,7 +198,7 @@ export async function getAuthors({ limit = 'all' }) {
 export async function getAuthorBySlug(slug) {
   return await api.authors
     .read({
-      slug,
+      slug
     })
     .catch((err) => {
       if (!err.response) {
@@ -217,7 +218,7 @@ export async function getPostsByTags(tags = []) {
       fields: listPostFields,
       include: ['tags', 'authors'],
       exclude: 'html',
-      order: ['featured DESC', 'published_at DESC'],
+      order: ['featured DESC', 'published_at DESC']
     })
     .catch((err) => {
       if (!err.response) {
@@ -235,7 +236,7 @@ export async function getSection() {
     .browse({
       filter: 'visibility:public',
       limit: 7,
-      order: ['featured DESC', 'posts.count DESC'],
+      order: ['featured DESC', 'posts.count DESC']
     })
     .catch((err) => {
       if (!err.response) {

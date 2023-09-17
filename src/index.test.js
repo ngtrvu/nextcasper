@@ -1,7 +1,7 @@
-import { ExampleComponent } from '.'
+import { Header } from './index.x'
 
-describe('ExampleComponent', () => {
+describe('Header Component', () => {
   it('is truthy', () => {
-    expect(ExampleComponent).toBeTruthy()
+    expect(Header).toBeTruthy()
   })
 })

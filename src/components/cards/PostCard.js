@@ -1,6 +1,8 @@
 import moment from 'moment'
 import Link from 'next/link'
-import { FeatureIcon, getIMGXUrl } from 'nextcasper'
+import React from 'react'
+import { getIMGXUrl } from '../../lib/image/optimizer'
+import FeatureIcon from '../svg/FeatureIcon'
 
 export default function component({
   post,

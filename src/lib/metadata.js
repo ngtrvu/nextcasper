@@ -1,5 +1,6 @@
-import { webUrl } from 'nextcasper/config'
-import { isoDatetime } from 'nextcasper/utils/formatDate'
+import { isoDatetime } from '../utils/formatDate'
+
+const webUrl = process.env.NEXT_PUBLIC_WEB_URL
 
 export const getMetadata = (settings, headProps = {}) => {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || settings.url
@@ -14,7 +15,7 @@ export const getMetadata = (settings, headProps = {}) => {
       settings.description ||
       'We feature travel stories and lifestyles of real locals for those who want to explore destinations through the lens of people who live there.',
     url: settings.url,
-    siteName: settings.siteName,
+    siteName: settings.siteName
   }
 
   const metaProps = {
@@ -42,7 +43,7 @@ export const getMetadata = (settings, headProps = {}) => {
       headProps.description ||
       'We feature travel stories and lifestyles of real locals for those who want to explore destinations through the lens of people who live there.',
     ogUrl: headProps.og_url || headProps.canonical || defaultProps.url,
-    canonical: headProps.canonical,
+    canonical: headProps.canonical
   }
 
   return {
@@ -50,7 +51,7 @@ export const getMetadata = (settings, headProps = {}) => {
     title: metaProps.title,
     description: metaProps.description,
     alternates: {
-      canonical: metaProps.canonical,
+      canonical: metaProps.canonical
     },
     openGraph: {
       title: metaProps.title,
@@ -59,8 +60,8 @@ export const getMetadata = (settings, headProps = {}) => {
       siteName: settings.title,
       images: [],
       locale: 'en_US',
-      type: 'website',
-    },
+      type: 'website'
+    }
   }
 }
 
@@ -72,7 +73,7 @@ export const getPostMetadata = ({ post, settings }) => {
   const headProps = {
     title: settings.title ? `${post.title} | ${settings.title}` : post.title,
     description: post.custom_excerpt || post.excerpt,
-    canonical: `/post/${post.slug}/${post.id}`,
+    canonical: `/post/${post.slug}/${post.id}`
   }
 
   const openGraph = {
@@ -81,12 +82,12 @@ export const getPostMetadata = ({ post, settings }) => {
     images: [post.feature_image],
     type: 'article',
     publishedTime: isoDatetime(post.published_at),
-    modifiedTime: isoDatetime(post.updated_at),
+    modifiedTime: isoDatetime(post.updated_at)
   }
 
   return {
     ...getMetadata(settings, headProps),
-    openGraph: openGraph,
+    openGraph: openGraph
   }
 }
 
@@ -94,7 +95,7 @@ export const getPageMetadata = ({ page, settings }) => {
   const headProps = {
     title: settings.title ? `${page.title} | ${settings.title}` : page.title,
     description: page.custom_excerpt || page.excerpt,
-    canonical: `/page/${page.slug}`,
+    canonical: `/page/${page.slug}`
   }
 
   const openGraph = {
@@ -103,12 +104,12 @@ export const getPageMetadata = ({ page, settings }) => {
     images: [page.feature_image],
     type: 'article',
     publishedTime: isoDatetime(page.published_at),
-    modifiedTime: isoDatetime(page.updated_at),
+    modifiedTime: isoDatetime(page.updated_at)
   }
 
   return {
     ...getMetadata(settings, headProps),
-    openGraph: openGraph,
+    openGraph: openGraph
   }
 }
 
@@ -116,7 +117,7 @@ export const getTagMetadata = ({ tag, settings }) => {
   const headProps = {
     title: settings.title ? `${tag.title} | ${settings.title}` : tag.title,
     description: tag.custom_excerpt || tag.excerpt,
-    canonical: `/tag/${tag.slug}`,
+    canonical: `/tag/${tag.slug}`
   }
 
   const openGraph = {
@@ -125,12 +126,12 @@ export const getTagMetadata = ({ tag, settings }) => {
     images: [tag.feature_image],
     type: 'article',
     publishedTime: isoDatetime(tag.published_at),
-    modifiedTime: isoDatetime(tag.updated_at),
+    modifiedTime: isoDatetime(tag.updated_at)
   }
 
   return {
     ...getMetadata(settings, headProps),
-    openGraph: openGraph,
+    openGraph: openGraph
   }
 }
 
@@ -138,7 +139,7 @@ export const getAuthorMetadata = ({ author, settings }) => {
   const headProps = {
     title: settings.title ? `${author.name} | ${settings.title}` : author.name,
     description: author.bio,
-    canonical: `/author/${author.slug}`,
+    canonical: `/author/${author.slug}`
   }
 
   const openGraph = {
@@ -147,11 +148,11 @@ export const getAuthorMetadata = ({ author, settings }) => {
     images: [author.feature_image],
     type: 'article',
     publishedTime: isoDatetime(author.published_at),
-    modifiedTime: isoDatetime(author.updated_at),
+    modifiedTime: isoDatetime(author.updated_at)
   }
 
   return {
     ...getMetadata(settings, headProps),
-    openGraph: openGraph,
+    openGraph: openGraph
   }
 }

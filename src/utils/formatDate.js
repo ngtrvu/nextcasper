@@ -1,7 +1,4 @@
 import moment from 'moment'
-import 'moment/locale/vi'
-
-moment.locale('vi')
 
 export default (date) => moment.unix(date).format('MMMM Do, YYYY LT')
 
