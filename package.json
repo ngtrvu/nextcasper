@@ -12,8 +12,9 @@
     "node": ">=10"
   },
   "scripts": {
-    "build": "microbundle-crl --no-compress --format modern,cjss",
-    "start": "microbundle-crl watch --no-compress --format modern,cjss",
+    "build": "microbundle-crl --no-compress --format modern,cjs",
+    "start": "microbundle-crl watch --no-compress --format modern,cjs",
+    "dev": "microbundle-crl watch --no-compress --format modern,cjs",
     "prepare": "run-s build",
     "test": "run-s test:unit test:lint test:build",
     "test:build": "run-s build",
@@ -26,9 +27,11 @@
   "peerDependencies": {
     "moment": "^2.29.3",
     "next": "^13.4.13",
-    "react": "^16.0.0"
+    "react": "^16.0.0",
+    "@tryghost/content-api": "^1.11.16"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-unicode-property-regex": "^7.18.6",
     "babel-eslint": "^10.0.3",
     "cross-env": "^7.0.2",
     "eslint": "^6.8.0",
@@ -49,12 +52,10 @@
     "prettier": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "^3.4.1"
+    "react-scripts": "^3.4.1",
+    "@tryghost/content-api": "^1.11.16"
   },
   "files": [
     "dist"
-  ],
-  "dependencies": {
-    "@tryghost/content-api": "^1.11.16"
-  }
+  ]
 }

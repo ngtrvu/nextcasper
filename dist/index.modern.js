@@ -2,6 +2,7 @@ import React$1, { useState, useEffect } from 'react';
 import moment from 'moment';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { getIMGXUrl as getIMGXUrl$1, ensureContent as ensureContent$1, FeatureIcon as FeatureIcon$1, ProfileIcon as ProfileIcon$1 } from '.';
 import GhostContentAPI from '@tryghost/content-api';
 
 const getIMGXUrl = (url, width, height, autoFormat = true) => {
@@ -215,11 +216,167 @@ function component$2({
   }))) : null))));
 }
 
+function ProfileIcon() {
+  return /*#__PURE__*/React$1.createElement("svg", {
+    viewBox: "0 0 24 24",
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /*#__PURE__*/React$1.createElement("g", {
+    fill: "none",
+    fillRule: "evenodd"
+  }, /*#__PURE__*/React$1.createElement("path", {
+    d: "M3.513 18.998C4.749 15.504 8.082 13 12 13s7.251 2.504 8.487 5.998C18.47 21.442 15.417 23 12 23s-6.47-1.558-8.487-4.002zM12 12c2.21 0 4-2.79 4-5s-1.79-4-4-4-4 1.79-4 4 1.79 5 4 5z",
+    fill: "#FFF"
+  })));
+}
+
+function component$3({
+  page
+}) {
+  return /*#__PURE__*/React.createElement("main", {
+    id: "site-main",
+    className: "site-main"
+  }, /*#__PURE__*/React.createElement("article", {
+    className: "article page"
+  }, /*#__PURE__*/React.createElement("header", {
+    className: "article-header gh-canvas"
+  }, /*#__PURE__*/React.createElement("h1", {
+    className: "article-title"
+  }, page.title), page.custom_excerpt ? /*#__PURE__*/React.createElement("p", {
+    className: "article-excerpt"
+  }, page.custom_excerpt) : null, /*#__PURE__*/React.createElement("div", {
+    className: "article-byline"
+  }, /*#__PURE__*/React.createElement("section", {
+    className: "article-byline-content"
+  })), page.feature_image ? /*#__PURE__*/React.createElement("figure", {
+    className: "article-image"
+  }, /*#__PURE__*/React.createElement("img", {
+    srcSet: `${getIMGXUrl$1(page.feature_image, 300)} 300w
+                ${getIMGXUrl$1(page.feature_image, 600)} 600w,
+                ${getIMGXUrl$1(page.feature_image, 1000)} 1000w,
+                ${getIMGXUrl$1(page.feature_image, 2000)} 2000w`,
+    sizes: "(min-width: 1400px) 1400px, 92vw",
+    src: `${getIMGXUrl$1(page.feature_image, 1000)}`
+  }), page.feature_image_caption ? /*#__PURE__*/React.createElement("figcaption", {
+    dangerouslySetInnerHTML: {
+      __html: page.feature_image_caption
+    }
+  }) : null) : null), /*#__PURE__*/React.createElement("section", {
+    dangerouslySetInnerHTML: {
+      __html: ensureContent$1(page.html)
+    },
+    className: "gh-content gh-canvas"
+  }), /*#__PURE__*/React.createElement("aside", {
+    className: "gh-sidebar"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "gh-toc"
+  }))));
+}
+
+const ensureContent = content => {
+  if (!content) return null;
+  let mycontent = content;
+  mycontent = fixImgUrl(mycontent);
+  const regex = /"(https:\/\/localinsider.storage.googleapis.com\/){1}([a-zA-Z0-9-_\/.]+)"/g;
+  mycontent = mycontent.replace(regex, 'https://localinsider.imgix.net/$2');
+  return mycontent;
+};
+function fixImgUrl(html) {
+  const regex = /src="(https:\/\/localinsider.storage.googleapis.com\/){1}([a-zA-Z0-9-_\/.]+)"/g;
+  return html.replace(regex, "src='https://localinsider.imgix.net/$2?width=800'");
+}
+
+function component$4({
+  post
+}) {
+  const {
+    authors,
+    tags,
+    primary_tag
+  } = post;
+  return /*#__PURE__*/React.createElement("main", {
+    id: "site-main",
+    className: "site-main"
+  }, /*#__PURE__*/React.createElement("article", {
+    className: "article post"
+  }, /*#__PURE__*/React.createElement("header", {
+    className: "article-header gh-canvas"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "article-tag post-card-tags"
+  }, primary_tag ? /*#__PURE__*/React.createElement("span", {
+    className: "post-card-primary-tag"
+  }, /*#__PURE__*/React.createElement(Link, {
+    href: `/tag/${primary_tag.slug}`
+  }, primary_tag.name)) : null, post.featured ? /*#__PURE__*/React.createElement("span", {
+    className: "post-card-featured"
+  }, /*#__PURE__*/React.createElement(FeatureIcon$1, null), " Featured") : null), /*#__PURE__*/React.createElement("h1", {
+    className: "article-title"
+  }, post.title), post.custom_excerpt ? /*#__PURE__*/React.createElement("p", {
+    className: "article-excerpt"
+  }, post.custom_excerpt) : null, /*#__PURE__*/React.createElement("div", {
+    className: "article-byline"
+  }, /*#__PURE__*/React.createElement("section", {
+    className: "article-byline-content"
+  }, /*#__PURE__*/React.createElement("ul", {
+    className: "author-list"
+  }, authors.map(author => /*#__PURE__*/React.createElement("li", {
+    key: author.id,
+    className: "author-list-item"
+  }, author.profile_image ? /*#__PURE__*/React.createElement(Link, {
+    href: `/author/${author.slug}`,
+    className: "author-avatar"
+  }, /*#__PURE__*/React.createElement("img", {
+    className: "author-profile-image",
+    src: author.profile_image,
+    alt: author.name
+  })) : /*#__PURE__*/React.createElement(Link, {
+    href: `/author/${author.slug}`,
+    className: "author-avatar"
+  }, /*#__PURE__*/React.createElement(ProfileIcon$1, null), " ", author.name)))), /*#__PURE__*/React.createElement("div", {
+    className: "article-byline-meta"
+  }, /*#__PURE__*/React.createElement("h4", {
+    className: "author-name"
+  }, /*#__PURE__*/React.createElement(Link, {
+    href: `/author/${authors[0].slug}`
+  }, authors.map(_ => _.name).join(','))), /*#__PURE__*/React.createElement("div", {
+    className: "byline-meta-content"
+  }, /*#__PURE__*/React.createElement("time", {
+    className: "byline-meta-date"
+  }, moment(post.date).format('YYYY-MM-DD')), /*#__PURE__*/React.createElement("span", {
+    className: "byline-reading-time"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "bull"
+  }, "\u2022"), " ", post.reading_time, " min read"))))), post.feature_image ? /*#__PURE__*/React.createElement("figure", {
+    className: "article-image"
+  }, /*#__PURE__*/React.createElement("img", {
+    srcSet: `${getIMGXUrl$1(post.feature_image, 300)} 300w
+                            ${getIMGXUrl$1(post.feature_image, 600)} 600w,
+                            ${getIMGXUrl$1(post.feature_image, 1000)} 1000w,
+                            ${getIMGXUrl$1(post.feature_image, 2000)} 2000w`,
+    sizes: "(min-width: 1400px) 1400px, 92vw",
+    src: `${getIMGXUrl$1(post.feature_image, 1000)}`,
+    "ix-sizes": "auto"
+  }), post.feature_image_caption ? /*#__PURE__*/React.createElement("figcaption", {
+    dangerouslySetInnerHTML: {
+      __html: post.feature_image_caption
+    }
+  }) : null) : null), /*#__PURE__*/React.createElement("section", {
+    dangerouslySetInnerHTML: {
+      __html: ensureContent(post.html)
+    },
+    className: "gh-content gh-canvas"
+  }), /*#__PURE__*/React.createElement("aside", {
+    className: "gh-sidebar"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "gh-toc"
+  }))));
+}
+
 const getParamSerializer = parameters => {
-  return Object.keys(parameters).reduce((parts, k) => {
+  const queryString = Object.keys(parameters).reduce((parts, k) => {
     const val = encodeURIComponent([].concat(parameters[k]).join(','));
     return parts.concat(`${k}=${val}`);
   }, []).join('&');
+  return queryString;
 };
 const fetchCall = async ({
   url,
@@ -245,36 +402,188 @@ const listPostFields = ['id', 'title', 'slug', 'description', 'visibility', 'fea
 async function getPosts({
   limit = 'all'
 }) {
-  return await api.posts.browse({
+  const options = {
     limit: limit,
     fields: listPostFields,
     include: ['tags', 'authors'],
     order: ['featured DESC', 'published_at DESC']
-  }).catch(err => {
+  };
+  const queryString = getParamSerializer(options);
+  console.log('>>>>', queryString);
+  return await api.posts.browse(options).catch(err => {
     console.error(err);
   });
 }
 async function getPostsByTag(slug, {
   limit = 'all'
 }) {
-  return await api.posts.browse({
+  const options = {
     limit: limit,
     filter: `tag:${slug}`,
     fields: listPostFields,
     include: ['tags', 'authors'],
     order: ['featured DESC', 'published_at DESC']
-  }).catch(err => {
+  };
+  const queryString = getParamSerializer(options);
+  return await api.posts.browse(options).catch(err => {
     console.error(err);
   });
 }
-function getSettings() {
-  return api.settings.browse().catch(err => {
+async function getPostsByAuthor(slug, {
+  limit = 'all'
+}) {
+  const options = {
+    limit: limit,
+    filter: `author:${slug}`,
+    fields: listPostFields,
+    include: ['tags', 'authors'],
+    order: ['featured DESC', 'published_at DESC']
+  };
+  const queryString = getParamSerializer(options);
+  return await api.posts.browse(options).catch(err => {
+    console.error(err);
+  });
+}
+async function getSinglePostBySlug(slug) {
+  const options = {
+    slug,
+    include: ['tags', 'authors', 'count.posts']
+  };
+  const queryString = getParamSerializer(options);
+  return await api.posts.read(options).catch(err => {
     if (!err.response) {
       console.error(err);
     } else if (err && err.response && err.response.status >= 500) {
       console.error(err);
     }
   });
+}
+async function getSinglePostById(id) {
+  const options = {
+    id,
+    include: ['tags', 'authors', 'count.posts']
+  };
+  const queryString = getParamSerializer(options);
+  return await api.posts.read(options).catch(err => {
+    if (!err.response) {
+      console.error(err);
+    } else if (err && err.response && err.response.status >= 500) {
+      console.error(err);
+    }
+  });
+}
+async function getPages() {
+  const options = {
+    limit: 'all'
+  };
+  const queryString = getParamSerializer(options);
+  return await api.pages.browse(options).catch(err => {
+    if (err && err.response && err.response.status > 500) {
+      console.error(err);
+    }
+  });
+}
+async function getSinglePage(slug) {
+  const options = {
+    slug,
+    limit: 'all',
+    order: ['featured DESC', 'published_at DESC'],
+    page: 1
+  };
+  const queryString = getParamSerializer(options);
+  return await api.pages.read(options).catch(err => {
+    if (!err.response) {
+      console.error(err);
+    } else if (err.response.status >= 500) {
+      console.error(err);
+    }
+  });
+}
+const ghostApiCall = async ({
+  contentType
+}) => {
+  const ghostUrl = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL;
+  const key = process.env.NEXT_PUBLIC_GHOST_CONTENT_KEY;
+  const url = `${ghostUrl}/ghost/api/content/${contentType}/?key=${key}`;
+  const response = await fetch(url);
+  if (!response.ok) {
+    console.error('not ok');
+    return null;
+  }
+  return response.json();
+};
+async function getSettings() {
+  return ghostApiCall({
+    contentType: 'settings'
+  });
+}
+async function getTags({
+  limit = 'all'
+}) {
+  return await api.tags.browse({
+    limit: limit
+  }).catch(err => {
+    if (!err.response) {
+      console.error(err);
+    } else if (err && err.response && err.response.status >= 500) {
+      console.error(err);
+    }
+  });
+}
+async function getTagBySlug(slug) {
+  return await api.tags.read({
+    slug
+  }).catch(err => {
+    if (!err.response) {
+      console.error(err);
+    } else if (err.response.status >= 500) {
+      console.error(err);
+    }
+  });
+}
+async function getAuthors({
+  limit = 'all'
+}) {
+  return await api.authors.browse({
+    limit: limit
+  }).catch(err => {
+    if (!err.response) {
+      console.error(err);
+    } else if (err && err.response && err.response.status >= 500) {
+      console.error(err);
+    }
+  });
+}
+async function getAuthorBySlug(slug) {
+  return await api.authors.read({
+    slug
+  }).catch(err => {
+    if (!err.response) {
+      console.error(err);
+    } else if (err && err.response && err.response.status >= 500) {
+      console.error(err);
+    }
+  });
+}
+async function getPostsByTags(tags = []) {
+  const tagList = tags.map(tag => tag.slug).join(',');
+  const options = {
+    limit: 6,
+    filter: `tags:[${tagList}]`,
+    fields: listPostFields,
+    include: ['tags', 'authors'],
+    exclude: 'html',
+    order: ['featured DESC', 'published_at DESC']
+  };
+  const queryString = getParamSerializer(options);
+  const res = await api.posts.browse(options).catch(err => {
+    if (!err.response) {
+      console.error(err);
+    } else if (err && err.response && err.response.status >= 500) {
+      console.error(err);
+    }
+  });
+  return res;
 }
 async function getSection() {
   const tags = await api.tags.browse({
@@ -298,6 +607,24 @@ async function getSection() {
     });
   }));
 }
+
+var api$1 = {
+  __proto__: null,
+  getPosts: getPosts,
+  getPostsByTag: getPostsByTag,
+  getPostsByAuthor: getPostsByAuthor,
+  getSinglePostBySlug: getSinglePostBySlug,
+  getSinglePostById: getSinglePostById,
+  getPages: getPages,
+  getSinglePage: getSinglePage,
+  getSettings: getSettings,
+  getTags: getTags,
+  getTagBySlug: getTagBySlug,
+  getAuthors: getAuthors,
+  getAuthorBySlug: getAuthorBySlug,
+  getPostsByTags: getPostsByTags,
+  getSection: getSection
+};
 
 const isoDatetime = timeData => {
   if (!timeData) {
@@ -439,7 +766,7 @@ const getAuthorMetadata = ({
   };
 };
 
-var styles = {"test":"_3ybTi"};
+var styles = {"test":"_styles-module__test__3ybTi"};
 
 const ExampleComponent = ({
   text
@@ -449,5 +776,5 @@ const ExampleComponent = ({
   }, "Example Component: ", text);
 };
 
-export { ExampleComponent, component$1 as Footer, component$2 as Header, component as PostCard, getAuthorMetadata, getIMGXUrl, getMetadata, getPageMetadata, getPostMetadata, getPosts, getSection, getSettings, getTagMetadata };
+export { ExampleComponent, FeatureIcon, component$1 as Footer, component$2 as Header, component$3 as PageTemplate, component as PostCard, component$4 as PostTemplate, ProfileIcon, getAuthorMetadata, getIMGXUrl, getMetadata, getPageMetadata, getPostMetadata, getTagMetadata, api$1 as ghostApi };
 //# sourceMappingURL=index.modern.js.map

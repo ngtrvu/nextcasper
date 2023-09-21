@@ -1,7 +1,15 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
-    "jsx": "react"
+    "jsx": "react",
+    "baseUrl": "src",
+    "paths": {
+      "nextcasper": ["./src"],
+      "nextcasper/*": ["./src/*/index", "./src/*"]
+    },
+    "noEmit": true,
+    "strict": true,
+    "target": "esnext"
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }
