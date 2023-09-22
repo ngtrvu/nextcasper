@@ -1,26 +1,11 @@
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 // import SearchIcon from 'components/svg/SearchIcon'
 
 export default function component({ settings }) {
-  const router = useRouter()
-  const [isShowMenu, setShowMenu] = useState(false)
   const { facebook, twitter } = settings
   const twitterUrl = `https://twitter.com/${twitter}`
   const facebookUrl = `https://www.facebook.com/${facebook}`
-
-  useEffect(() => {
-    if (isShowMenu) {
-      document.querySelector('#next-body').classList.add('gh-head-open')
-    } else {
-      document.querySelector('#next-body').classList.remove('gh-head-open')
-    }
-  }, [isShowMenu])
-
-  useEffect(() => {
-    setShowMenu(false)
-  }, [router.asPath])
 
   return (
     <header id='gh-head' className='gh-head outer'>
@@ -31,17 +16,7 @@ export default function component({ settings }) {
           </Link>
           <div className='gh-head-brand-wrapper'>
             {/* <SearchIcon /> */}
-            <a
-              className='gh-burger'
-              role='button'
-              onClick={() => {
-                setShowMenu(!isShowMenu)
-              }}
-            >
-              <div className='gh-burger-box'>
-                <div className='gh-burger-inner'></div>
-              </div>
-            </a>
+            {/* <Menu /> */}
           </div>
         </div>
         <div className='gh-head-menu'>

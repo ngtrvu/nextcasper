@@ -1,5 +1,6 @@
 import moment from 'moment'
 import Link from 'next/link'
+import React from 'react'
 import { FeatureIcon, ProfileIcon, getIMGXUrl } from '.'
 import { ensureContent } from '../../lib/ghost/content'
 

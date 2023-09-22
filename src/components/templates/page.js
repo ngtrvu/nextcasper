@@ -1,4 +1,6 @@
-import { ensureContent, getIMGXUrl } from '.'
+import React from 'react'
+import { getIMGXUrl } from '.'
+import { ensureContent } from '../../lib/ghost/content'
 
 export default function component({ page }) {
   return (

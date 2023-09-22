@@ -45,6 +45,45 @@ const listPostFields = [
   'updated_at'
 ]
 
+const getGhostUrl = ({ contentType, params, type = 'browse' }) => {
+  const ghostUrl = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL
+  const key = process.env.NEXT_PUBLIC_GHOST_CONTENT_KEY
+  let url = `${ghostUrl}/ghost/api/content/${contentType}/`
+
+  if (type == 'read') {
+    if (params && params.id) {
+      url = `${url}${params.id}/`
+      delete params.id
+    } else if (params && params.slug) {
+      url = `${url}slug/${params.slug}/`
+      delete params.slug
+    }
+  }
+
+  if (key) {
+    url = `${url}?key=${key}`
+  }
+  if (params) {
+    const queryString = getParamSerializer(params)
+    url = `${url}&${queryString}`
+  }
+
+  return url
+}
+
+const ghostApiCall = async ({ contentType, params, type = 'browse' }) => {
+  const url = getGhostUrl(contentType, params, type)
+  console.log(url)
+
+  const response = await fetch(url)
+  if (!response.ok) {
+    console.error('not ok')
+    return
+  }
+
+  return response.json()
+}
+
 export async function getPosts({ limit = 'all' }) {
   const options = {
     limit: limit,
@@ -52,11 +91,7 @@ export async function getPosts({ limit = 'all' }) {
     include: ['tags', 'authors'],
     order: ['featured DESC', 'published_at DESC']
   }
-  const queryString = getParamSerializer(options)
-  console.log('>>>>', queryString)
-  return await api.posts.browse(options).catch((err) => {
-    console.error(err)
-  })
+  return ghostApiCall({ contentType: 'posts', params: options })
 }
 
 export async function getPostsByTag(slug, { limit = 'all' }) {
@@ -67,9 +102,9 @@ export async function getPostsByTag(slug, { limit = 'all' }) {
     include: ['tags', 'authors'],
     order: ['featured DESC', 'published_at DESC']
   }
-  const queryString = getParamSerializer(options)
-  return await api.posts.browse(options).catch((err) => {
-    console.error(err)
+  return ghostApiCall({
+    contentType: 'posts',
+    params: options
   })
 }
 
@@ -81,9 +116,9 @@ export async function getPostsByAuthor(slug, { limit = 'all' }) {
     include: ['tags', 'authors'],
     order: ['featured DESC', 'published_at DESC']
   }
-  const queryString = getParamSerializer(options)
-  return await api.posts.browse(options).catch((err) => {
-    console.error(err)
+  return ghostApiCall({
+    contentType: 'posts',
+    params: options
   })
 }
 
@@ -92,13 +127,10 @@ export async function getSinglePostBySlug(slug) {
     slug,
     include: ['tags', 'authors', 'count.posts']
   }
-  const queryString = getParamSerializer(options)
-  return await api.posts.read(options).catch((err) => {
-    if (!err.response) {
-      console.error(err)
-    } else if (err && err.response && err.response.status >= 500) {
-      console.error(err)
-    }
+  return ghostApiCall({
+    contentType: 'posts',
+    params: options,
+    type: 'read'
   })
 }
 
@@ -107,13 +139,10 @@ export async function getSinglePostById(id) {
     id,
     include: ['tags', 'authors', 'count.posts']
   }
-  const queryString = getParamSerializer(options)
-  return await api.posts.read(options).catch((err) => {
-    if (!err.response) {
-      console.error(err)
-    } else if (err && err.response && err.response.status >= 500) {
-      console.error(err)
-    }
+  return ghostApiCall({
+    contentType: 'posts',
+    params: options,
+    type: 'read'
   })
 }
 
@@ -121,11 +150,9 @@ export async function getPages() {
   const options = {
     limit: 'all'
   }
-  const queryString = getParamSerializer(options)
-  return await api.pages.browse(options).catch((err) => {
-    if (err && err.response && err.response.status > 500) {
-      console.error(err)
-    }
+  return ghostApiCall({
+    contentType: 'pages',
+    params: options
   })
 }
 
@@ -136,34 +163,11 @@ export async function getSinglePage(slug) {
     order: ['featured DESC', 'published_at DESC'],
     page: 1
   }
-  const queryString = getParamSerializer(options)
-  return await api.pages.read(options).catch((err) => {
-    if (!err.response) {
-      console.error(err)
-    } else if (err.response.status >= 500) {
-      console.error(err)
-    }
+  return ghostApiCall({
+    contentType: 'pages',
+    params: options,
+    type: 'read'
   })
-}
-
-const optionsToParams = (options) => {
-  for (const [key, value] of Object.entries(options)) {
-    console.log(key, value)
-  }
-  return ''
-}
-
-const ghostApiCall = async ({ contentType }) => {
-  const ghostUrl = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL
-  const key = process.env.NEXT_PUBLIC_GHOST_CONTENT_KEY
-  const url = `${ghostUrl}/ghost/api/content/${contentType}/?key=${key}`
-  const response = await fetch(url)
-  if (!response.ok) {
-    console.error('not ok')
-    return null
-  }
-
-  return response.json()
 }
 
 export async function getSettings() {
@@ -171,59 +175,30 @@ export async function getSettings() {
 }
 
 export async function getTags({ limit = 'all' }) {
-  return await api.tags
-    .browse({
+  return ghostApiCall({
+    contentType: 'tags',
+    params: {
       limit: limit
-    })
-    .catch((err) => {
-      if (!err.response) {
-        console.error(err)
-      } else if (err && err.response && err.response.status >= 500) {
-        console.error(err)
-      }
-    })
+    }
+  })
 }
 
 export async function getTagBySlug(slug) {
-  return await api.tags
-    .read({
-      slug
-    })
-    .catch((err) => {
-      if (!err.response) {
-        console.error(err)
-      } else if (err.response.status >= 500) {
-        console.error(err)
-      }
-    })
-}
-
-export async function getAuthors({ limit = 'all' }) {
-  return await api.authors
-    .browse({
-      limit: limit
-    })
-    .catch((err) => {
-      if (!err.response) {
-        console.error(err)
-      } else if (err && err.response && err.response.status >= 500) {
-        console.error(err)
-      }
-    })
+  return ghostApiCall({
+    contentType: 'tags',
+    params: {
+      slug: slug
+    }
+  })
 }
 
 export async function getAuthorBySlug(slug) {
-  return await api.authors
-    .read({
-      slug
-    })
-    .catch((err) => {
-      if (!err.response) {
-        console.error(err)
-      } else if (err && err.response && err.response.status >= 500) {
-        console.error(err)
-      }
-    })
+  return ghostApiCall({
+    contentType: 'authors',
+    params: {
+      slug: slug
+    }
+  })
 }
 
 export async function getPostsByTags(tags = []) {
@@ -236,38 +211,28 @@ export async function getPostsByTags(tags = []) {
     exclude: 'html',
     order: ['featured DESC', 'published_at DESC']
   }
-  const queryString = getParamSerializer(options)
-  const res = await api.posts.browse(options).catch((err) => {
-    if (!err.response) {
-      console.error(err)
-    } else if (err && err.response && err.response.status >= 500) {
-      console.error(err)
-    }
+  return ghostApiCall({
+    contentType: 'authors',
+    params: options
   })
-
-  return res
 }
 
 export async function getSection() {
-  const tags = await api.tags
-    .browse({
-      filter: 'visibility:public',
-      limit: 7,
-      order: ['featured DESC', 'posts.count DESC']
-    })
-    .catch((err) => {
-      if (!err.response) {
-        console.error(err)
-      } else if (err && err.response && err.response.status >= 500) {
-        console.error(err)
-      }
-    })
+  const options = {
+    filter: 'visibility:public',
+    limit: 7,
+    order: ['featured DESC', 'posts.count DESC']
+  }
+  const { tags } = await ghostApiCall({
+    contentType: 'tags',
+    params: options
+  })
 
   if (!tags) return null
 
-  return await Promise.all(
+  return Promise.all(
     tags.map(async (tag) => {
-      const posts = await getPostsByTag(tag.slug, { limit: 3 })
+      const { posts } = await getPostsByTag(tag.slug, { limit: 3 })
       return Object.assign(tag, { posts: posts })
     })
   )
