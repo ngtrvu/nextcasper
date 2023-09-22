@@ -1,10 +1,8 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var React$1 = require('react');
-var React$1__default = _interopDefault(React$1);
+var React = _interopDefault(require('react'));
 var moment = _interopDefault(require('moment'));
 var Link = _interopDefault(require('next/link'));
-var navigation = require('next/navigation');
 var _ = require('.');
 var GhostContentAPI = _interopDefault(require('@tryghost/content-api'));
 
@@ -34,13 +32,13 @@ var getIMGXUrl = function getIMGXUrl(url, width, height, autoFormat) {
 };
 
 function FeatureIcon() {
-  return /*#__PURE__*/React$1__default.createElement("svg", {
+  return /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "17",
     viewBox: "0 0 16 17",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, /*#__PURE__*/React$1__default.createElement("path", {
+  }, /*#__PURE__*/React.createElement("path", {
     d: "M4.49365 4.58752C3.53115 6.03752 2.74365 7.70002 2.74365 9.25002C2.74365 10.6424 3.29678 11.9778 4.28134 12.9623C5.26591 13.9469 6.60127 14.5 7.99365 14.5C9.38604 14.5 10.7214 13.9469 11.706 12.9623C12.6905 11.9778 13.2437 10.6424 13.2437 9.25002C13.2437 6.00002 10.9937 3.50002 9.16865 1.68127L6.99365 6.25002L4.49365 4.58752Z",
     stroke: "currentColor",
     strokeWidth: "2",
@@ -63,53 +61,53 @@ function component(_ref) {
   if (isLarge) classNames.push('post-card-large');
   if (isDynamic) classNames.push('dynamic');
   if (!post.access) classNames.push("post-access-" + post.visibility);
-  return /*#__PURE__*/React$1__default.createElement("article", {
+  return /*#__PURE__*/React.createElement("article", {
     className: "post-card post " + classNames.join(' ')
-  }, /*#__PURE__*/React$1__default.createElement(Link, {
+  }, /*#__PURE__*/React.createElement(Link, {
     href: url,
     className: "post-card-image-link"
-  }, /*#__PURE__*/React$1__default.createElement("img", {
+  }, /*#__PURE__*/React.createElement("img", {
     className: "post-card-image",
     sizes: "(max-width: 1000px) 400px, 800px",
     src: post && post.feature_image ? isLarge || isDynamic ? getIMGXUrl(post.feature_image, 900, 450) : getIMGXUrl(post.feature_image, 600, 300) : null
-  }), post.title), /*#__PURE__*/React$1__default.createElement("div", {
+  }), post.title), /*#__PURE__*/React.createElement("div", {
     className: "post-card-content"
-  }, /*#__PURE__*/React$1__default.createElement(Link, {
+  }, /*#__PURE__*/React.createElement(Link, {
     href: url,
     className: "post-card-content-link"
-  }, /*#__PURE__*/React$1__default.createElement("header", {
+  }, /*#__PURE__*/React.createElement("header", {
     className: "post-card-header"
-  }, /*#__PURE__*/React$1__default.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "post-card-tags"
-  }, tags && tags[0] ? /*#__PURE__*/React$1__default.createElement("span", {
+  }, tags && tags[0] ? /*#__PURE__*/React.createElement("span", {
     className: "post-card-primary-tag"
-  }, tags[0].name) : null, post.featured ? /*#__PURE__*/React$1__default.createElement("span", {
+  }, tags[0].name) : null, post.featured ? /*#__PURE__*/React.createElement("span", {
     className: "post-card-featured"
-  }, /*#__PURE__*/React$1__default.createElement(FeatureIcon, null), " Featured") : null), /*#__PURE__*/React$1__default.createElement("h2", {
+  }, /*#__PURE__*/React.createElement(FeatureIcon, null), " Featured") : null), /*#__PURE__*/React.createElement("h2", {
     className: "post-card-title"
-  }, post.title)), /*#__PURE__*/React$1__default.createElement("div", {
+  }, post.title)), /*#__PURE__*/React.createElement("div", {
     className: "post-card-excerpt"
-  }, post.excerpt)), /*#__PURE__*/React$1__default.createElement("footer", {
+  }, post.excerpt)), /*#__PURE__*/React.createElement("footer", {
     className: ""
-  }, /*#__PURE__*/React$1__default.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "post-card-meta"
-  }, authors ? /*#__PURE__*/React$1__default.createElement("ul", {
+  }, authors ? /*#__PURE__*/React.createElement("ul", {
     className: "author-list"
-  }, /*#__PURE__*/React$1__default.createElement("li", {
+  }, /*#__PURE__*/React.createElement("li", {
     className: "author-list-item"
-  }, /*#__PURE__*/React$1__default.createElement(Link, {
+  }, /*#__PURE__*/React.createElement(Link, {
     href: "/author/" + author.slug,
     className: ""
   }, authors.map(function (_) {
     return _.name;
-  }).join(',')))) : null, /*#__PURE__*/React$1__default.createElement("span", {
+  }).join(',')))) : null, /*#__PURE__*/React.createElement("span", {
     className: "sep"
-  }, "\u2014"), /*#__PURE__*/React$1__default.createElement("time", {
+  }, "\u2014"), /*#__PURE__*/React.createElement("time", {
     className: "post-card-meta-date",
     dateTime: post.published_at
-  }, moment(post.published_at).format('YYYY-MM-DD')), post.reading_time && /*#__PURE__*/React$1__default.createElement(Fragment, null, /*#__PURE__*/React$1__default.createElement("span", {
+  }, moment(post.published_at).format('YYYY-MM-DD')), post.reading_time && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement("span", {
     className: "sep"
-  }, "\u2014"), /*#__PURE__*/React$1__default.createElement("span", {
+  }, "\u2014"), /*#__PURE__*/React.createElement("span", {
     className: "post-card-meta-length"
   }, post.reading_time, " min read"))))));
 }
@@ -141,101 +139,90 @@ function component$1(_ref) {
 
 function component$2(_ref) {
   var settings = _ref.settings;
-  var router = navigation.useRouter();
-  var _useState = React$1.useState(false),
-    isShowMenu = _useState[0],
-    setShowMenu = _useState[1];
   var facebook = settings.facebook,
     twitter = settings.twitter;
   var twitterUrl = "https://twitter.com/" + twitter;
   var facebookUrl = "https://www.facebook.com/" + facebook;
-  React$1.useEffect(function () {
-    if (isShowMenu) {
-      document.querySelector('#next-body').classList.add('gh-head-open');
-    } else {
-      document.querySelector('#next-body').classList.remove('gh-head-open');
-    }
-  }, [isShowMenu]);
-  React$1.useEffect(function () {
-    setShowMenu(false);
-  }, [router.asPath]);
-  return /*#__PURE__*/React$1__default.createElement("header", {
+  return /*#__PURE__*/React.createElement("header", {
     id: "gh-head",
     className: "gh-head outer"
-  }, /*#__PURE__*/React$1__default.createElement("nav", {
+  }, /*#__PURE__*/React.createElement("nav", {
     className: "gh-head-inner inner"
-  }, /*#__PURE__*/React$1__default.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "gh-head-brand"
-  }, /*#__PURE__*/React$1__default.createElement(Link, {
+  }, /*#__PURE__*/React.createElement(Link, {
     href: "/",
     className: "gh-head-logo no-image"
-  }, settings.title), /*#__PURE__*/React$1__default.createElement("div", {
+  }, settings.title), /*#__PURE__*/React.createElement("div", {
     className: "gh-head-brand-wrapper"
-  }, /*#__PURE__*/React$1__default.createElement("a", {
-    className: "gh-burger",
-    role: "button",
-    onClick: function onClick() {
-      setShowMenu(!isShowMenu);
-    }
-  }, /*#__PURE__*/React$1__default.createElement("div", {
-    className: "gh-burger-box"
-  }, /*#__PURE__*/React$1__default.createElement("div", {
-    className: "gh-burger-inner"
-  }))))), /*#__PURE__*/React$1__default.createElement("div", {
+  })), /*#__PURE__*/React.createElement("div", {
     className: "gh-head-menu"
-  }, /*#__PURE__*/React$1__default.createElement("ul", {
+  }, /*#__PURE__*/React.createElement("ul", {
     className: "nav"
   }, settings.navigation.map(function (item, idx) {
-    return /*#__PURE__*/React$1__default.createElement("li", {
+    return /*#__PURE__*/React.createElement("li", {
       key: idx,
       className: "nav-item"
-    }, /*#__PURE__*/React$1__default.createElement(Link, {
+    }, /*#__PURE__*/React.createElement(Link, {
       href: item.url
     }, item.label));
-  }))), /*#__PURE__*/React$1__default.createElement("div", {
+  }))), /*#__PURE__*/React.createElement("div", {
     className: "gh-head-actions"
-  }, /*#__PURE__*/React$1__default.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "gh-social"
-  }, facebook ? /*#__PURE__*/React$1__default.createElement("a", {
+  }, facebook ? /*#__PURE__*/React.createElement("a", {
     className: "gh-social-link gh-social-facebook",
     href: facebookUrl,
     title: "Facebook",
     target: "_blank",
     rel: "noopener"
-  }, /*#__PURE__*/React$1__default.createElement("svg", {
+  }, /*#__PURE__*/React.createElement("svg", {
     className: "icon",
     viewBox: "0 0 24 24",
     xmlns: "http://www.w3.org/2000/svg",
     fill: "currentColor"
-  }, /*#__PURE__*/React$1__default.createElement("path", {
+  }, /*#__PURE__*/React.createElement("path", {
     d: "M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z"
-  }))) : null, twitter ? /*#__PURE__*/React$1__default.createElement("a", {
+  }))) : null, twitter ? /*#__PURE__*/React.createElement("a", {
     className: "gh-social-link gh-social-twitter",
     href: twitterUrl,
     title: "Twitter",
     target: "_blank",
     rel: "noopener"
-  }, /*#__PURE__*/React$1__default.createElement("svg", {
+  }, /*#__PURE__*/React.createElement("svg", {
     className: "icon",
     viewBox: "0 0 24 24",
     xmlns: "http://www.w3.org/2000/svg",
     fill: "currentColor"
-  }, /*#__PURE__*/React$1__default.createElement("path", {
+  }, /*#__PURE__*/React.createElement("path", {
     d: "M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"
   }))) : null))));
 }
 
 function ProfileIcon() {
-  return /*#__PURE__*/React$1__default.createElement("svg", {
+  return /*#__PURE__*/React.createElement("svg", {
     viewBox: "0 0 24 24",
     xmlns: "http://www.w3.org/2000/svg"
-  }, /*#__PURE__*/React$1__default.createElement("g", {
+  }, /*#__PURE__*/React.createElement("g", {
     fill: "none",
     fillRule: "evenodd"
-  }, /*#__PURE__*/React$1__default.createElement("path", {
+  }, /*#__PURE__*/React.createElement("path", {
     d: "M3.513 18.998C4.749 15.504 8.082 13 12 13s7.251 2.504 8.487 5.998C18.47 21.442 15.417 23 12 23s-6.47-1.558-8.487-4.002zM12 12c2.21 0 4-2.79 4-5s-1.79-4-4-4-4 1.79-4 4 1.79 5 4 5z",
     fill: "#FFF"
   })));
+}
+
+var ensureContent = function ensureContent(content) {
+  if (!content) return null;
+  var mycontent = content;
+  mycontent = fixImgUrl(mycontent);
+  var regex = /"(https:\/\/localinsider.storage.googleapis.com\/){1}([a-zA-Z0-9-_\/.]+)"/g;
+  mycontent = mycontent.replace(regex, 'https://localinsider.imgix.net/$2');
+  return mycontent;
+};
+function fixImgUrl(html) {
+  var regex = /src="(https:\/\/localinsider.storage.googleapis.com\/){1}([a-zA-Z0-9-_\/.]+)"/g;
+  return html.replace(regex, "src='https://localinsider.imgix.net/$2?width=800'");
 }
 
 function component$3(_ref) {
@@ -267,7 +254,7 @@ function component$3(_ref) {
     }
   }) : null) : null), /*#__PURE__*/React.createElement("section", {
     dangerouslySetInnerHTML: {
-      __html: _.ensureContent(page.html)
+      __html: ensureContent(page.html)
     },
     className: "gh-content gh-canvas"
   }), /*#__PURE__*/React.createElement("aside", {
@@ -275,19 +262,6 @@ function component$3(_ref) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "gh-toc"
   }))));
-}
-
-var ensureContent = function ensureContent(content) {
-  if (!content) return null;
-  var mycontent = content;
-  mycontent = fixImgUrl(mycontent);
-  var regex = /"(https:\/\/localinsider.storage.googleapis.com\/){1}([a-zA-Z0-9-_\/.]+)"/g;
-  mycontent = mycontent.replace(regex, 'https://localinsider.imgix.net/$2');
-  return mycontent;
-};
-function fixImgUrl(html) {
-  var regex = /src="(https:\/\/localinsider.storage.googleapis.com\/){1}([a-zA-Z0-9-_\/.]+)"/g;
-  return html.replace(regex, "src='https://localinsider.imgix.net/$2?width=800'");
 }
 
 function component$4(_ref) {
@@ -375,22 +349,22 @@ function component$4(_ref) {
 
 var getSection = function getSection() {
   try {
-    return Promise.resolve(api.tags.browse({
+    var options = {
       filter: 'visibility:public',
       limit: 7,
       order: ['featured DESC', 'posts.count DESC']
-    })["catch"](function (err) {
-      if (!err.response) {
-        console.error(err);
-      } else if (err && err.response && err.response.status >= 500) {
-        console.error(err);
-      }
-    })).then(function (tags) {
-      return tags ? Promise.resolve(Promise.all(tags.map(function (tag) {
+    };
+    return Promise.resolve(ghostApiCall({
+      contentType: 'tags',
+      params: options
+    })).then(function (_ref8) {
+      var tags = _ref8.tags;
+      return tags ? Promise.all(tags.map(function (tag) {
         try {
           return Promise.resolve(getPostsByTag(tag.slug, {
             limit: 3
-          })).then(function (posts) {
+          })).then(function (_ref9) {
+            var posts = _ref9.posts;
             return Object.assign(tag, {
               posts: posts
             });
@@ -398,7 +372,7 @@ var getSection = function getSection() {
         } catch (e) {
           return Promise.reject(e);
         }
-      }))) : null;
+      })) : null;
     });
   } catch (e) {
     return Promise.reject(e);
@@ -420,78 +394,48 @@ var getPostsByTags = function getPostsByTags(tags) {
       exclude: 'html',
       order: ['featured DESC', 'published_at DESC']
     };
-    var queryString = getParamSerializer(options);
-    return Promise.resolve(api.posts.browse(options)["catch"](function (err) {
-      if (!err.response) {
-        console.error(err);
-      } else if (err && err.response && err.response.status >= 500) {
-        console.error(err);
-      }
-    }));
+    return ghostApiCall({
+      contentType: 'authors',
+      params: options
+    });
   } catch (e) {
     return Promise.reject(e);
   }
 };
 var getAuthorBySlug = function getAuthorBySlug(slug) {
   try {
-    return Promise.resolve(api.authors.read({
-      slug: slug
-    })["catch"](function (err) {
-      if (!err.response) {
-        console.error(err);
-      } else if (err && err.response && err.response.status >= 500) {
-        console.error(err);
+    return ghostApiCall({
+      contentType: 'authors',
+      params: {
+        slug: slug
       }
-    }));
-  } catch (e) {
-    return Promise.reject(e);
-  }
-};
-var getAuthors = function getAuthors(_ref7) {
-  var _ref7$limit = _ref7.limit,
-    limit = _ref7$limit === void 0 ? 'all' : _ref7$limit;
-  try {
-    return Promise.resolve(api.authors.browse({
-      limit: limit
-    })["catch"](function (err) {
-      if (!err.response) {
-        console.error(err);
-      } else if (err && err.response && err.response.status >= 500) {
-        console.error(err);
-      }
-    }));
+    });
   } catch (e) {
     return Promise.reject(e);
   }
 };
 var getTagBySlug = function getTagBySlug(slug) {
   try {
-    return Promise.resolve(api.tags.read({
-      slug: slug
-    })["catch"](function (err) {
-      if (!err.response) {
-        console.error(err);
-      } else if (err.response.status >= 500) {
-        console.error(err);
+    return ghostApiCall({
+      contentType: 'tags',
+      params: {
+        slug: slug
       }
-    }));
+    });
   } catch (e) {
     return Promise.reject(e);
   }
 };
-var getTags = function getTags(_ref6) {
-  var _ref6$limit = _ref6.limit,
-    limit = _ref6$limit === void 0 ? 'all' : _ref6$limit;
+var getTags = function getTags(_ref7) {
+  var _ref7$limit = _ref7.limit,
+    limit = _ref7$limit === void 0 ? 'all' : _ref7$limit;
   try {
-    return Promise.resolve(api.tags.browse({
-      limit: limit
-    })["catch"](function (err) {
-      if (!err.response) {
-        console.error(err);
-      } else if (err && err.response && err.response.status >= 500) {
-        console.error(err);
+    return ghostApiCall({
+      contentType: 'tags',
+      params: {
+        limit: limit
       }
-    }));
+    });
   } catch (e) {
     return Promise.reject(e);
   }
@@ -513,14 +457,11 @@ var getSinglePage = function getSinglePage(slug) {
       order: ['featured DESC', 'published_at DESC'],
       page: 1
     };
-    var queryString = getParamSerializer(options);
-    return Promise.resolve(api.pages.read(options)["catch"](function (err) {
-      if (!err.response) {
-        console.error(err);
-      } else if (err.response.status >= 500) {
-        console.error(err);
-      }
-    }));
+    return ghostApiCall({
+      contentType: 'pages',
+      params: options,
+      type: 'read'
+    });
   } catch (e) {
     return Promise.reject(e);
   }
@@ -530,12 +471,10 @@ var getPages = function getPages() {
     var options = {
       limit: 'all'
     };
-    var queryString = getParamSerializer(options);
-    return Promise.resolve(api.pages.browse(options)["catch"](function (err) {
-      if (err && err.response && err.response.status > 500) {
-        console.error(err);
-      }
-    }));
+    return ghostApiCall({
+      contentType: 'pages',
+      params: options
+    });
   } catch (e) {
     return Promise.reject(e);
   }
@@ -546,14 +485,11 @@ var getSinglePostById = function getSinglePostById(id) {
       id: id,
       include: ['tags', 'authors', 'count.posts']
     };
-    var queryString = getParamSerializer(options);
-    return Promise.resolve(api.posts.read(options)["catch"](function (err) {
-      if (!err.response) {
-        console.error(err);
-      } else if (err && err.response && err.response.status >= 500) {
-        console.error(err);
-      }
-    }));
+    return ghostApiCall({
+      contentType: 'posts',
+      params: options,
+      type: 'read'
+    });
   } catch (e) {
     return Promise.reject(e);
   }
@@ -564,21 +500,18 @@ var getSinglePostBySlug = function getSinglePostBySlug(slug) {
       slug: slug,
       include: ['tags', 'authors', 'count.posts']
     };
-    var queryString = getParamSerializer(options);
-    return Promise.resolve(api.posts.read(options)["catch"](function (err) {
-      if (!err.response) {
-        console.error(err);
-      } else if (err && err.response && err.response.status >= 500) {
-        console.error(err);
-      }
-    }));
+    return ghostApiCall({
+      contentType: 'posts',
+      params: options,
+      type: 'read'
+    });
   } catch (e) {
     return Promise.reject(e);
   }
 };
-var getPostsByAuthor = function getPostsByAuthor(slug, _ref4) {
-  var _ref4$limit = _ref4.limit,
-    limit = _ref4$limit === void 0 ? 'all' : _ref4$limit;
+var getPostsByAuthor = function getPostsByAuthor(slug, _ref6) {
+  var _ref6$limit = _ref6.limit,
+    limit = _ref6$limit === void 0 ? 'all' : _ref6$limit;
   try {
     var options = {
       limit: limit,
@@ -587,17 +520,17 @@ var getPostsByAuthor = function getPostsByAuthor(slug, _ref4) {
       include: ['tags', 'authors'],
       order: ['featured DESC', 'published_at DESC']
     };
-    var queryString = getParamSerializer(options);
-    return Promise.resolve(api.posts.browse(options)["catch"](function (err) {
-      console.error(err);
-    }));
+    return ghostApiCall({
+      contentType: 'posts',
+      params: options
+    });
   } catch (e) {
     return Promise.reject(e);
   }
 };
-var getPostsByTag = function getPostsByTag(slug, _ref3) {
-  var _ref3$limit = _ref3.limit,
-    limit = _ref3$limit === void 0 ? 'all' : _ref3$limit;
+var getPostsByTag = function getPostsByTag(slug, _ref5) {
+  var _ref5$limit = _ref5.limit,
+    limit = _ref5$limit === void 0 ? 'all' : _ref5$limit;
   try {
     var options = {
       limit: limit,
@@ -606,17 +539,17 @@ var getPostsByTag = function getPostsByTag(slug, _ref3) {
       include: ['tags', 'authors'],
       order: ['featured DESC', 'published_at DESC']
     };
-    var queryString = getParamSerializer(options);
-    return Promise.resolve(api.posts.browse(options)["catch"](function (err) {
-      console.error(err);
-    }));
+    return ghostApiCall({
+      contentType: 'posts',
+      params: options
+    });
   } catch (e) {
     return Promise.reject(e);
   }
 };
-var getPosts = function getPosts(_ref2) {
-  var _ref2$limit = _ref2.limit,
-    limit = _ref2$limit === void 0 ? 'all' : _ref2$limit;
+var getPosts = function getPosts(_ref4) {
+  var _ref4$limit = _ref4.limit,
+    limit = _ref4$limit === void 0 ? 'all' : _ref4$limit;
   try {
     var options = {
       limit: limit,
@@ -624,11 +557,10 @@ var getPosts = function getPosts(_ref2) {
       include: ['tags', 'authors'],
       order: ['featured DESC', 'published_at DESC']
     };
-    var queryString = getParamSerializer(options);
-    console.log('>>>>', queryString);
-    return Promise.resolve(api.posts.browse(options)["catch"](function (err) {
-      console.error(err);
-    }));
+    return ghostApiCall({
+      contentType: 'posts',
+      params: options
+    });
   } catch (e) {
     return Promise.reject(e);
   }
@@ -665,16 +597,44 @@ var api = new GhostContentAPI({
   makeRequest: fetchCall
 });
 var listPostFields = ['id', 'title', 'slug', 'description', 'visibility', 'feature_image', 'primary_author', 'access', 'featured', 'reading_time', 'excerpt', 'published_at', 'updated_at'];
-var ghostApiCall = function ghostApiCall(_ref5) {
-  var contentType = _ref5.contentType;
+var getGhostUrl = function getGhostUrl(_ref2) {
+  var contentType = _ref2.contentType,
+    params = _ref2.params,
+    _ref2$type = _ref2.type,
+    type = _ref2$type === void 0 ? 'browse' : _ref2$type;
+  var ghostUrl = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL;
+  var key = process.env.NEXT_PUBLIC_GHOST_CONTENT_KEY;
+  var url = ghostUrl + "/ghost/api/content/" + contentType + "/";
+  if (type == 'read') {
+    if (params && params.id) {
+      url = "" + url + params.id + "/";
+      delete params.id;
+    } else if (params && params.slug) {
+      url = url + "slug/" + params.slug + "/";
+      delete params.slug;
+    }
+  }
+  if (key) {
+    url = url + "?key=" + key;
+  }
+  if (params) {
+    var queryString = getParamSerializer(params);
+    url = url + "&" + queryString;
+  }
+  return url;
+};
+var ghostApiCall = function ghostApiCall(_ref3) {
+  var contentType = _ref3.contentType,
+    params = _ref3.params,
+    _ref3$type = _ref3.type,
+    type = _ref3$type === void 0 ? 'browse' : _ref3$type;
   try {
-    var ghostUrl = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL;
-    var key = process.env.NEXT_PUBLIC_GHOST_CONTENT_KEY;
-    var url = ghostUrl + "/ghost/api/content/" + contentType + "/?key=" + key;
+    var url = getGhostUrl(contentType, params, type);
+    console.log(url);
     return Promise.resolve(fetch(url)).then(function (response) {
       if (!response.ok) {
         console.error('not ok');
-        return null;
+        return;
       }
       return response.json();
     });
@@ -688,7 +648,6 @@ var api$1 = {
   getSection: getSection,
   getPostsByTags: getPostsByTags,
   getAuthorBySlug: getAuthorBySlug,
-  getAuthors: getAuthors,
   getTagBySlug: getTagBySlug,
   getTags: getTags,
   getSettings: getSettings,
@@ -853,7 +812,7 @@ var styles = {"test":"_styles-module__test__3ybTi"};
 
 var ExampleComponent = function ExampleComponent(_ref) {
   var text = _ref.text;
-  return /*#__PURE__*/React$1__default.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: styles.test
   }, "Example Component: ", text);
 };

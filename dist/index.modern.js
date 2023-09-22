@@ -1,8 +1,7 @@
-import React$1, { useState, useEffect } from 'react';
+import React from 'react';
 import moment from 'moment';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import { getIMGXUrl as getIMGXUrl$1, ensureContent as ensureContent$1, FeatureIcon as FeatureIcon$1, ProfileIcon as ProfileIcon$1 } from '.';
+import { getIMGXUrl as getIMGXUrl$1, FeatureIcon as FeatureIcon$1, ProfileIcon as ProfileIcon$1 } from '.';
 import GhostContentAPI from '@tryghost/content-api';
 
 const getIMGXUrl = (url, width, height, autoFormat = true) => {
@@ -28,13 +27,13 @@ const getIMGXUrl = (url, width, height, autoFormat = true) => {
 };
 
 function FeatureIcon() {
-  return /*#__PURE__*/React$1.createElement("svg", {
+  return /*#__PURE__*/React.createElement("svg", {
     width: "16",
     height: "17",
     viewBox: "0 0 16 17",
     fill: "none",
     xmlns: "http://www.w3.org/2000/svg"
-  }, /*#__PURE__*/React$1.createElement("path", {
+  }, /*#__PURE__*/React.createElement("path", {
     d: "M4.49365 4.58752C3.53115 6.03752 2.74365 7.70002 2.74365 9.25002C2.74365 10.6424 3.29678 11.9778 4.28134 12.9623C5.26591 13.9469 6.60127 14.5 7.99365 14.5C9.38604 14.5 10.7214 13.9469 11.706 12.9623C12.6905 11.9778 13.2437 10.6424 13.2437 9.25002C13.2437 6.00002 10.9937 3.50002 9.16865 1.68127L6.99365 6.25002L4.49365 4.58752Z",
     stroke: "currentColor",
     strokeWidth: "2",
@@ -58,51 +57,51 @@ function component({
   if (isLarge) classNames.push('post-card-large');
   if (isDynamic) classNames.push('dynamic');
   if (!post.access) classNames.push(`post-access-${post.visibility}`);
-  return /*#__PURE__*/React$1.createElement("article", {
+  return /*#__PURE__*/React.createElement("article", {
     className: `post-card post ${classNames.join(' ')}`
-  }, /*#__PURE__*/React$1.createElement(Link, {
+  }, /*#__PURE__*/React.createElement(Link, {
     href: url,
     className: "post-card-image-link"
-  }, /*#__PURE__*/React$1.createElement("img", {
+  }, /*#__PURE__*/React.createElement("img", {
     className: "post-card-image",
     sizes: "(max-width: 1000px) 400px, 800px",
     src: post && post.feature_image ? isLarge || isDynamic ? getIMGXUrl(post.feature_image, 900, 450) : getIMGXUrl(post.feature_image, 600, 300) : null
-  }), post.title), /*#__PURE__*/React$1.createElement("div", {
+  }), post.title), /*#__PURE__*/React.createElement("div", {
     className: "post-card-content"
-  }, /*#__PURE__*/React$1.createElement(Link, {
+  }, /*#__PURE__*/React.createElement(Link, {
     href: url,
     className: "post-card-content-link"
-  }, /*#__PURE__*/React$1.createElement("header", {
+  }, /*#__PURE__*/React.createElement("header", {
     className: "post-card-header"
-  }, /*#__PURE__*/React$1.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "post-card-tags"
-  }, tags && tags[0] ? /*#__PURE__*/React$1.createElement("span", {
+  }, tags && tags[0] ? /*#__PURE__*/React.createElement("span", {
     className: "post-card-primary-tag"
-  }, tags[0].name) : null, post.featured ? /*#__PURE__*/React$1.createElement("span", {
+  }, tags[0].name) : null, post.featured ? /*#__PURE__*/React.createElement("span", {
     className: "post-card-featured"
-  }, /*#__PURE__*/React$1.createElement(FeatureIcon, null), " Featured") : null), /*#__PURE__*/React$1.createElement("h2", {
+  }, /*#__PURE__*/React.createElement(FeatureIcon, null), " Featured") : null), /*#__PURE__*/React.createElement("h2", {
     className: "post-card-title"
-  }, post.title)), /*#__PURE__*/React$1.createElement("div", {
+  }, post.title)), /*#__PURE__*/React.createElement("div", {
     className: "post-card-excerpt"
-  }, post.excerpt)), /*#__PURE__*/React$1.createElement("footer", {
+  }, post.excerpt)), /*#__PURE__*/React.createElement("footer", {
     className: ""
-  }, /*#__PURE__*/React$1.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "post-card-meta"
-  }, authors ? /*#__PURE__*/React$1.createElement("ul", {
+  }, authors ? /*#__PURE__*/React.createElement("ul", {
     className: "author-list"
-  }, /*#__PURE__*/React$1.createElement("li", {
+  }, /*#__PURE__*/React.createElement("li", {
     className: "author-list-item"
-  }, /*#__PURE__*/React$1.createElement(Link, {
+  }, /*#__PURE__*/React.createElement(Link, {
     href: `/author/${author.slug}`,
     className: ""
-  }, authors.map(_ => _.name).join(',')))) : null, /*#__PURE__*/React$1.createElement("span", {
+  }, authors.map(_ => _.name).join(',')))) : null, /*#__PURE__*/React.createElement("span", {
     className: "sep"
-  }, "\u2014"), /*#__PURE__*/React$1.createElement("time", {
+  }, "\u2014"), /*#__PURE__*/React.createElement("time", {
     className: "post-card-meta-date",
     dateTime: post.published_at
-  }, moment(post.published_at).format('YYYY-MM-DD')), post.reading_time && /*#__PURE__*/React$1.createElement(Fragment, null, /*#__PURE__*/React$1.createElement("span", {
+  }, moment(post.published_at).format('YYYY-MM-DD')), post.reading_time && /*#__PURE__*/React.createElement(Fragment, null, /*#__PURE__*/React.createElement("span", {
     className: "sep"
-  }, "\u2014"), /*#__PURE__*/React$1.createElement("span", {
+  }, "\u2014"), /*#__PURE__*/React.createElement("span", {
     className: "post-card-meta-length"
   }, post.reading_time, " min read"))))));
 }
@@ -134,99 +133,90 @@ function component$1({
 function component$2({
   settings
 }) {
-  const router = useRouter();
-  const [isShowMenu, setShowMenu] = useState(false);
   const {
     facebook,
     twitter
   } = settings;
   const twitterUrl = `https://twitter.com/${twitter}`;
   const facebookUrl = `https://www.facebook.com/${facebook}`;
-  useEffect(() => {
-    if (isShowMenu) {
-      document.querySelector('#next-body').classList.add('gh-head-open');
-    } else {
-      document.querySelector('#next-body').classList.remove('gh-head-open');
-    }
-  }, [isShowMenu]);
-  useEffect(() => {
-    setShowMenu(false);
-  }, [router.asPath]);
-  return /*#__PURE__*/React$1.createElement("header", {
+  return /*#__PURE__*/React.createElement("header", {
     id: "gh-head",
     className: "gh-head outer"
-  }, /*#__PURE__*/React$1.createElement("nav", {
+  }, /*#__PURE__*/React.createElement("nav", {
     className: "gh-head-inner inner"
-  }, /*#__PURE__*/React$1.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "gh-head-brand"
-  }, /*#__PURE__*/React$1.createElement(Link, {
+  }, /*#__PURE__*/React.createElement(Link, {
     href: "/",
     className: "gh-head-logo no-image"
-  }, settings.title), /*#__PURE__*/React$1.createElement("div", {
+  }, settings.title), /*#__PURE__*/React.createElement("div", {
     className: "gh-head-brand-wrapper"
-  }, /*#__PURE__*/React$1.createElement("a", {
-    className: "gh-burger",
-    role: "button",
-    onClick: () => {
-      setShowMenu(!isShowMenu);
-    }
-  }, /*#__PURE__*/React$1.createElement("div", {
-    className: "gh-burger-box"
-  }, /*#__PURE__*/React$1.createElement("div", {
-    className: "gh-burger-inner"
-  }))))), /*#__PURE__*/React$1.createElement("div", {
+  })), /*#__PURE__*/React.createElement("div", {
     className: "gh-head-menu"
-  }, /*#__PURE__*/React$1.createElement("ul", {
+  }, /*#__PURE__*/React.createElement("ul", {
     className: "nav"
-  }, settings.navigation.map((item, idx) => /*#__PURE__*/React$1.createElement("li", {
+  }, settings.navigation.map((item, idx) => /*#__PURE__*/React.createElement("li", {
     key: idx,
     className: "nav-item"
-  }, /*#__PURE__*/React$1.createElement(Link, {
+  }, /*#__PURE__*/React.createElement(Link, {
     href: item.url
-  }, item.label))))), /*#__PURE__*/React$1.createElement("div", {
+  }, item.label))))), /*#__PURE__*/React.createElement("div", {
     className: "gh-head-actions"
-  }, /*#__PURE__*/React$1.createElement("div", {
+  }, /*#__PURE__*/React.createElement("div", {
     className: "gh-social"
-  }, facebook ? /*#__PURE__*/React$1.createElement("a", {
+  }, facebook ? /*#__PURE__*/React.createElement("a", {
     className: "gh-social-link gh-social-facebook",
     href: facebookUrl,
     title: "Facebook",
     target: "_blank",
     rel: "noopener"
-  }, /*#__PURE__*/React$1.createElement("svg", {
+  }, /*#__PURE__*/React.createElement("svg", {
     className: "icon",
     viewBox: "0 0 24 24",
     xmlns: "http://www.w3.org/2000/svg",
     fill: "currentColor"
-  }, /*#__PURE__*/React$1.createElement("path", {
+  }, /*#__PURE__*/React.createElement("path", {
     d: "M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z"
-  }))) : null, twitter ? /*#__PURE__*/React$1.createElement("a", {
+  }))) : null, twitter ? /*#__PURE__*/React.createElement("a", {
     className: "gh-social-link gh-social-twitter",
     href: twitterUrl,
     title: "Twitter",
     target: "_blank",
     rel: "noopener"
-  }, /*#__PURE__*/React$1.createElement("svg", {
+  }, /*#__PURE__*/React.createElement("svg", {
     className: "icon",
     viewBox: "0 0 24 24",
     xmlns: "http://www.w3.org/2000/svg",
     fill: "currentColor"
-  }, /*#__PURE__*/React$1.createElement("path", {
+  }, /*#__PURE__*/React.createElement("path", {
     d: "M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.896-.959-2.173-1.559-3.591-1.559-2.717 0-4.92 2.203-4.92 4.917 0 .39.045.765.127 1.124C7.691 8.094 4.066 6.13 1.64 3.161c-.427.722-.666 1.561-.666 2.475 0 1.71.87 3.213 2.188 4.096-.807-.026-1.566-.248-2.228-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.413.111-.849.171-1.296.171-.314 0-.615-.03-.916-.086.631 1.953 2.445 3.377 4.604 3.417-1.68 1.319-3.809 2.105-6.102 2.105-.39 0-.779-.023-1.17-.067 2.189 1.394 4.768 2.209 7.557 2.209 9.054 0 13.999-7.496 13.999-13.986 0-.209 0-.42-.015-.63.961-.689 1.8-1.56 2.46-2.548l-.047-.02z"
   }))) : null))));
 }
 
 function ProfileIcon() {
-  return /*#__PURE__*/React$1.createElement("svg", {
+  return /*#__PURE__*/React.createElement("svg", {
     viewBox: "0 0 24 24",
     xmlns: "http://www.w3.org/2000/svg"
-  }, /*#__PURE__*/React$1.createElement("g", {
+  }, /*#__PURE__*/React.createElement("g", {
     fill: "none",
     fillRule: "evenodd"
-  }, /*#__PURE__*/React$1.createElement("path", {
+  }, /*#__PURE__*/React.createElement("path", {
     d: "M3.513 18.998C4.749 15.504 8.082 13 12 13s7.251 2.504 8.487 5.998C18.47 21.442 15.417 23 12 23s-6.47-1.558-8.487-4.002zM12 12c2.21 0 4-2.79 4-5s-1.79-4-4-4-4 1.79-4 4 1.79 5 4 5z",
     fill: "#FFF"
   })));
+}
+
+const ensureContent = content => {
+  if (!content) return null;
+  let mycontent = content;
+  mycontent = fixImgUrl(mycontent);
+  const regex = /"(https:\/\/localinsider.storage.googleapis.com\/){1}([a-zA-Z0-9-_\/.]+)"/g;
+  mycontent = mycontent.replace(regex, 'https://localinsider.imgix.net/$2');
+  return mycontent;
+};
+function fixImgUrl(html) {
+  const regex = /src="(https:\/\/localinsider.storage.googleapis.com\/){1}([a-zA-Z0-9-_\/.]+)"/g;
+  return html.replace(regex, "src='https://localinsider.imgix.net/$2?width=800'");
 }
 
 function component$3({
@@ -262,7 +252,7 @@ function component$3({
     }
   }) : null) : null), /*#__PURE__*/React.createElement("section", {
     dangerouslySetInnerHTML: {
-      __html: ensureContent$1(page.html)
+      __html: ensureContent(page.html)
     },
     className: "gh-content gh-canvas"
   }), /*#__PURE__*/React.createElement("aside", {
@@ -270,19 +260,6 @@ function component$3({
   }, /*#__PURE__*/React.createElement("div", {
     className: "gh-toc"
   }))));
-}
-
-const ensureContent = content => {
-  if (!content) return null;
-  let mycontent = content;
-  mycontent = fixImgUrl(mycontent);
-  const regex = /"(https:\/\/localinsider.storage.googleapis.com\/){1}([a-zA-Z0-9-_\/.]+)"/g;
-  mycontent = mycontent.replace(regex, 'https://localinsider.imgix.net/$2');
-  return mycontent;
-};
-function fixImgUrl(html) {
-  const regex = /src="(https:\/\/localinsider.storage.googleapis.com\/){1}([a-zA-Z0-9-_\/.]+)"/g;
-  return html.replace(regex, "src='https://localinsider.imgix.net/$2?width=800'");
 }
 
 function component$4({
@@ -399,6 +376,46 @@ const api = new GhostContentAPI({
   makeRequest: fetchCall
 });
 const listPostFields = ['id', 'title', 'slug', 'description', 'visibility', 'feature_image', 'primary_author', 'access', 'featured', 'reading_time', 'excerpt', 'published_at', 'updated_at'];
+const getGhostUrl = ({
+  contentType,
+  params,
+  type: _type = 'browse'
+}) => {
+  const ghostUrl = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL;
+  const key = process.env.NEXT_PUBLIC_GHOST_CONTENT_KEY;
+  let url = `${ghostUrl}/ghost/api/content/${contentType}/`;
+  if (_type == 'read') {
+    if (params && params.id) {
+      url = `${url}${params.id}/`;
+      delete params.id;
+    } else if (params && params.slug) {
+      url = `${url}slug/${params.slug}/`;
+      delete params.slug;
+    }
+  }
+  if (key) {
+    url = `${url}?key=${key}`;
+  }
+  if (params) {
+    const queryString = getParamSerializer(params);
+    url = `${url}&${queryString}`;
+  }
+  return url;
+};
+const ghostApiCall = async ({
+  contentType,
+  params,
+  type: _type2 = 'browse'
+}) => {
+  const url = getGhostUrl(contentType);
+  console.log(url);
+  const response = await fetch(url);
+  if (!response.ok) {
+    console.error('not ok');
+    return;
+  }
+  return response.json();
+};
 async function getPosts({
   limit = 'all'
 }) {
@@ -408,10 +425,9 @@ async function getPosts({
     include: ['tags', 'authors'],
     order: ['featured DESC', 'published_at DESC']
   };
-  const queryString = getParamSerializer(options);
-  console.log('>>>>', queryString);
-  return await api.posts.browse(options).catch(err => {
-    console.error(err);
+  return ghostApiCall({
+    contentType: 'posts',
+    params: options
   });
 }
 async function getPostsByTag(slug, {
@@ -424,9 +440,9 @@ async function getPostsByTag(slug, {
     include: ['tags', 'authors'],
     order: ['featured DESC', 'published_at DESC']
   };
-  const queryString = getParamSerializer(options);
-  return await api.posts.browse(options).catch(err => {
-    console.error(err);
+  return ghostApiCall({
+    contentType: 'posts',
+    params: options
   });
 }
 async function getPostsByAuthor(slug, {
@@ -439,9 +455,9 @@ async function getPostsByAuthor(slug, {
     include: ['tags', 'authors'],
     order: ['featured DESC', 'published_at DESC']
   };
-  const queryString = getParamSerializer(options);
-  return await api.posts.browse(options).catch(err => {
-    console.error(err);
+  return ghostApiCall({
+    contentType: 'posts',
+    params: options
   });
 }
 async function getSinglePostBySlug(slug) {
@@ -449,13 +465,10 @@ async function getSinglePostBySlug(slug) {
     slug,
     include: ['tags', 'authors', 'count.posts']
   };
-  const queryString = getParamSerializer(options);
-  return await api.posts.read(options).catch(err => {
-    if (!err.response) {
-      console.error(err);
-    } else if (err && err.response && err.response.status >= 500) {
-      console.error(err);
-    }
+  return ghostApiCall({
+    contentType: 'posts',
+    params: options,
+    type: 'read'
   });
 }
 async function getSinglePostById(id) {
@@ -463,24 +476,19 @@ async function getSinglePostById(id) {
     id,
     include: ['tags', 'authors', 'count.posts']
   };
-  const queryString = getParamSerializer(options);
-  return await api.posts.read(options).catch(err => {
-    if (!err.response) {
-      console.error(err);
-    } else if (err && err.response && err.response.status >= 500) {
-      console.error(err);
-    }
+  return ghostApiCall({
+    contentType: 'posts',
+    params: options,
+    type: 'read'
   });
 }
 async function getPages() {
   const options = {
     limit: 'all'
   };
-  const queryString = getParamSerializer(options);
-  return await api.pages.browse(options).catch(err => {
-    if (err && err.response && err.response.status > 500) {
-      console.error(err);
-    }
+  return ghostApiCall({
+    contentType: 'pages',
+    params: options
   });
 }
 async function getSinglePage(slug) {
@@ -490,28 +498,12 @@ async function getSinglePage(slug) {
     order: ['featured DESC', 'published_at DESC'],
     page: 1
   };
-  const queryString = getParamSerializer(options);
-  return await api.pages.read(options).catch(err => {
-    if (!err.response) {
-      console.error(err);
-    } else if (err.response.status >= 500) {
-      console.error(err);
-    }
+  return ghostApiCall({
+    contentType: 'pages',
+    params: options,
+    type: 'read'
   });
 }
-const ghostApiCall = async ({
-  contentType
-}) => {
-  const ghostUrl = process.env.NEXT_PUBLIC_GHOST_CONTENT_URL;
-  const key = process.env.NEXT_PUBLIC_GHOST_CONTENT_KEY;
-  const url = `${ghostUrl}/ghost/api/content/${contentType}/?key=${key}`;
-  const response = await fetch(url);
-  if (!response.ok) {
-    console.error('not ok');
-    return null;
-  }
-  return response.json();
-};
 async function getSettings() {
   return ghostApiCall({
     contentType: 'settings'
@@ -520,48 +512,26 @@ async function getSettings() {
 async function getTags({
   limit = 'all'
 }) {
-  return await api.tags.browse({
-    limit: limit
-  }).catch(err => {
-    if (!err.response) {
-      console.error(err);
-    } else if (err && err.response && err.response.status >= 500) {
-      console.error(err);
+  return ghostApiCall({
+    contentType: 'tags',
+    params: {
+      limit: limit
     }
   });
 }
 async function getTagBySlug(slug) {
-  return await api.tags.read({
-    slug
-  }).catch(err => {
-    if (!err.response) {
-      console.error(err);
-    } else if (err.response.status >= 500) {
-      console.error(err);
-    }
-  });
-}
-async function getAuthors({
-  limit = 'all'
-}) {
-  return await api.authors.browse({
-    limit: limit
-  }).catch(err => {
-    if (!err.response) {
-      console.error(err);
-    } else if (err && err.response && err.response.status >= 500) {
-      console.error(err);
+  return ghostApiCall({
+    contentType: 'tags',
+    params: {
+      slug: slug
     }
   });
 }
 async function getAuthorBySlug(slug) {
-  return await api.authors.read({
-    slug
-  }).catch(err => {
-    if (!err.response) {
-      console.error(err);
-    } else if (err && err.response && err.response.status >= 500) {
-      console.error(err);
+  return ghostApiCall({
+    contentType: 'authors',
+    params: {
+      slug: slug
     }
   });
 }
@@ -575,31 +545,28 @@ async function getPostsByTags(tags = []) {
     exclude: 'html',
     order: ['featured DESC', 'published_at DESC']
   };
-  const queryString = getParamSerializer(options);
-  const res = await api.posts.browse(options).catch(err => {
-    if (!err.response) {
-      console.error(err);
-    } else if (err && err.response && err.response.status >= 500) {
-      console.error(err);
-    }
+  return ghostApiCall({
+    contentType: 'authors',
+    params: options
   });
-  return res;
 }
 async function getSection() {
-  const tags = await api.tags.browse({
+  const options = {
     filter: 'visibility:public',
     limit: 7,
     order: ['featured DESC', 'posts.count DESC']
-  }).catch(err => {
-    if (!err.response) {
-      console.error(err);
-    } else if (err && err.response && err.response.status >= 500) {
-      console.error(err);
-    }
+  };
+  const {
+    tags
+  } = await ghostApiCall({
+    contentType: 'tags',
+    params: options
   });
   if (!tags) return null;
-  return await Promise.all(tags.map(async tag => {
-    const posts = await getPostsByTag(tag.slug, {
+  return Promise.all(tags.map(async tag => {
+    const {
+      posts
+    } = await getPostsByTag(tag.slug, {
       limit: 3
     });
     return Object.assign(tag, {
@@ -620,7 +587,6 @@ var api$1 = {
   getSettings: getSettings,
   getTags: getTags,
   getTagBySlug: getTagBySlug,
-  getAuthors: getAuthors,
   getAuthorBySlug: getAuthorBySlug,
   getPostsByTags: getPostsByTags,
   getSection: getSection
@@ -771,7 +737,7 @@ var styles = {"test":"_styles-module__test__3ybTi"};
 const ExampleComponent = ({
   text
 }) => {
-  return /*#__PURE__*/React$1.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: styles.test
   }, "Example Component: ", text);
 };
