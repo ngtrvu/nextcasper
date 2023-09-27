@@ -357,14 +357,14 @@ var getSection = function getSection() {
     return Promise.resolve(ghostApiCall({
       contentType: 'tags',
       params: options
-    })).then(function (_ref8) {
-      var tags = _ref8.tags;
+    })).then(function (_ref9) {
+      var tags = _ref9.tags;
       return tags ? Promise.all(tags.map(function (tag) {
         try {
           return Promise.resolve(getPostsByTag(tag.slug, {
             limit: 3
-          })).then(function (_ref9) {
-            var posts = _ref9.posts;
+          })).then(function (_ref10) {
+            var posts = _ref10.posts;
             return Object.assign(tag, {
               posts: posts
             });
@@ -408,7 +408,8 @@ var getAuthorBySlug = function getAuthorBySlug(slug) {
       contentType: 'authors',
       params: {
         slug: slug
-      }
+      },
+      type: 'read'
     });
   } catch (e) {
     return Promise.reject(e);
@@ -420,15 +421,16 @@ var getTagBySlug = function getTagBySlug(slug) {
       contentType: 'tags',
       params: {
         slug: slug
-      }
+      },
+      type: 'read'
     });
   } catch (e) {
     return Promise.reject(e);
   }
 };
-var getTags = function getTags(_ref7) {
-  var _ref7$limit = _ref7.limit,
-    limit = _ref7$limit === void 0 ? 'all' : _ref7$limit;
+var getTags = function getTags(_ref8) {
+  var _ref8$limit = _ref8.limit,
+    limit = _ref8$limit === void 0 ? 'all' : _ref8$limit;
   try {
     return ghostApiCall({
       contentType: 'tags',
@@ -509,9 +511,9 @@ var getSinglePostBySlug = function getSinglePostBySlug(slug) {
     return Promise.reject(e);
   }
 };
-var getPostsByAuthor = function getPostsByAuthor(slug, _ref6) {
-  var _ref6$limit = _ref6.limit,
-    limit = _ref6$limit === void 0 ? 'all' : _ref6$limit;
+var getPostsByAuthor = function getPostsByAuthor(slug, _ref7) {
+  var _ref7$limit = _ref7.limit,
+    limit = _ref7$limit === void 0 ? 'all' : _ref7$limit;
   try {
     var options = {
       limit: limit,
@@ -528,9 +530,9 @@ var getPostsByAuthor = function getPostsByAuthor(slug, _ref6) {
     return Promise.reject(e);
   }
 };
-var getPostsByTag = function getPostsByTag(slug, _ref5) {
-  var _ref5$limit = _ref5.limit,
-    limit = _ref5$limit === void 0 ? 'all' : _ref5$limit;
+var getPostsByTag = function getPostsByTag(slug, _ref6) {
+  var _ref6$limit = _ref6.limit,
+    limit = _ref6$limit === void 0 ? 'all' : _ref6$limit;
   try {
     var options = {
       limit: limit,
@@ -547,9 +549,9 @@ var getPostsByTag = function getPostsByTag(slug, _ref5) {
     return Promise.reject(e);
   }
 };
-var getPosts = function getPosts(_ref4) {
-  var _ref4$limit = _ref4.limit,
-    limit = _ref4$limit === void 0 ? 'all' : _ref4$limit;
+var getPosts = function getPosts(_ref5) {
+  var _ref5$limit = _ref5.limit,
+    limit = _ref5$limit === void 0 ? 'all' : _ref5$limit;
   try {
     var options = {
       limit: limit,
@@ -629,14 +631,28 @@ var ghostApiCall = function ghostApiCall(_ref3) {
     _ref3$type = _ref3.type,
     type = _ref3$type === void 0 ? 'browse' : _ref3$type;
   try {
-    var url = getGhostUrl(contentType, params, type);
+    var url = getGhostUrl({
+      contentType: contentType,
+      params: params,
+      type: type
+    });
     console.log(url);
     return Promise.resolve(fetch(url)).then(function (response) {
       if (!response.ok) {
         console.error('not ok');
-        return;
+        return {};
       }
-      return response.json();
+      return Promise.resolve(response.json()).then(function (data) {
+        if (type == 'read') {
+          var items = data ? data[contentType] : [];
+          if (items && items.length > 0) {
+            var _ref4;
+            return _ref4 = {}, _ref4[contentType] = items[0], _ref4;
+          }
+          return {};
+        }
+        return data;
+      });
     });
   } catch (e) {
     return Promise.reject(e);

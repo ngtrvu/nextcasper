@@ -63,6 +63,7 @@ const getGhostUrl = ({ contentType, params, type = 'browse' }) => {
   if (key) {
     url = `${url}?key=${key}`
   }
+
   if (params) {
     const queryString = getParamSerializer(params)
     url = `${url}&${queryString}`
@@ -72,16 +73,26 @@ const getGhostUrl = ({ contentType, params, type = 'browse' }) => {
 }
 
 const ghostApiCall = async ({ contentType, params, type = 'browse' }) => {
-  const url = getGhostUrl(contentType, params, type)
+  const url = getGhostUrl({ contentType, params, type })
   console.log(url)
 
   const response = await fetch(url)
   if (!response.ok) {
     console.error('not ok')
-    return
+    return {}
   }
 
-  return response.json()
+  const data = await response.json()
+  if (type == 'read') {
+    const items = data ? data[contentType] : []
+    if (items && items.length > 0) {
+      return { [contentType]: items[0] }
+    }
+
+    return {}
+  }
+
+  return data
 }
 
 export async function getPosts({ limit = 'all' }) {
@@ -188,7 +199,8 @@ export async function getTagBySlug(slug) {
     contentType: 'tags',
     params: {
       slug: slug
-    }
+    },
+    type: 'read'
   })
 }
 
@@ -197,7 +209,8 @@ export async function getAuthorBySlug(slug) {
     contentType: 'authors',
     params: {
       slug: slug
-    }
+    },
+    type: 'read'
   })
 }
 

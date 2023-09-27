@@ -407,14 +407,28 @@ const ghostApiCall = async ({
   params,
   type: _type2 = 'browse'
 }) => {
-  const url = getGhostUrl(contentType);
+  const url = getGhostUrl({
+    contentType,
+    params,
+    type: _type2
+  });
   console.log(url);
   const response = await fetch(url);
   if (!response.ok) {
     console.error('not ok');
-    return;
+    return {};
   }
-  return response.json();
+  const data = await response.json();
+  if (_type2 == 'read') {
+    const items = data ? data[contentType] : [];
+    if (items && items.length > 0) {
+      return {
+        [contentType]: items[0]
+      };
+    }
+    return {};
+  }
+  return data;
 };
 async function getPosts({
   limit = 'all'
@@ -524,7 +538,8 @@ async function getTagBySlug(slug) {
     contentType: 'tags',
     params: {
       slug: slug
-    }
+    },
+    type: 'read'
   });
 }
 async function getAuthorBySlug(slug) {
@@ -532,7 +547,8 @@ async function getAuthorBySlug(slug) {
     contentType: 'authors',
     params: {
       slug: slug
-    }
+    },
+    type: 'read'
   });
 }
 async function getPostsByTags(tags = []) {
