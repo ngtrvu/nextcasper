@@ -1,4 +1,3 @@
-import React from 'react'
 import PostCard from './components/cards/PostCard'
 import Footer from './components/common/Footer'
 import Header from './components/common/Header'
@@ -15,14 +14,10 @@ import {
   getPostMetadata,
   getTagMetadata
 } from './lib/metadata'
-import styles from './styles.module.css'
 
-const ExampleComponent = ({ text }) => {
-  return <div className={styles.test}>Example Component: {text}</div>
-}
+import './styles/localcasperv5/screen.css'
 
 export {
-  ExampleComponent,
   FeatureIcon,
   Footer,
   Header,

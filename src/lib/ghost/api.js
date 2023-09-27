@@ -74,7 +74,6 @@ const getGhostUrl = ({ contentType, params, type = 'browse' }) => {
 
 const ghostApiCall = async ({ contentType, params, type = 'browse' }) => {
   const url = getGhostUrl({ contentType, params, type })
-  console.log(url)
 
   const response = await fetch(url)
   if (!response.ok) {

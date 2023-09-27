@@ -1,6 +1,6 @@
-import React from 'react';
 import moment from 'moment';
 import Link from 'next/link';
+import React from 'react';
 import { getIMGXUrl as getIMGXUrl$1, FeatureIcon as FeatureIcon$1, ProfileIcon as ProfileIcon$1 } from '.';
 import GhostContentAPI from '@tryghost/content-api';
 
@@ -412,7 +412,6 @@ const ghostApiCall = async ({
     params,
     type: _type2
   });
-  console.log(url);
   const response = await fetch(url);
   if (!response.ok) {
     console.error('not ok');
@@ -748,15 +747,5 @@ const getAuthorMetadata = ({
   };
 };
 
-var styles = {"test":"_styles-module__test__3ybTi"};
-
-const ExampleComponent = ({
-  text
-}) => {
-  return /*#__PURE__*/React.createElement("div", {
-    className: styles.test
-  }, "Example Component: ", text);
-};
-
-export { ExampleComponent, FeatureIcon, component$1 as Footer, component$2 as Header, component$3 as PageTemplate, component as PostCard, component$4 as PostTemplate, ProfileIcon, getAuthorMetadata, getIMGXUrl, getMetadata, getPageMetadata, getPostMetadata, getTagMetadata, api$1 as ghostApi };
+export { FeatureIcon, component$1 as Footer, component$2 as Header, component$3 as PageTemplate, component as PostCard, component$4 as PostTemplate, ProfileIcon, getAuthorMetadata, getIMGXUrl, getMetadata, getPageMetadata, getPostMetadata, getTagMetadata, api$1 as ghostApi };
 //# sourceMappingURL=index.modern.js.map

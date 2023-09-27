@@ -1,8 +1,8 @@
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var React = _interopDefault(require('react'));
 var moment = _interopDefault(require('moment'));
 var Link = _interopDefault(require('next/link'));
+var React = _interopDefault(require('react'));
 var _ = require('.');
 var GhostContentAPI = _interopDefault(require('@tryghost/content-api'));
 
@@ -636,7 +636,6 @@ var ghostApiCall = function ghostApiCall(_ref3) {
       params: params,
       type: type
     });
-    console.log(url);
     return Promise.resolve(fetch(url)).then(function (response) {
       if (!response.ok) {
         console.error('not ok');
@@ -824,16 +823,6 @@ var getAuthorMetadata = function getAuthorMetadata(_ref4) {
   });
 };
 
-var styles = {"test":"_styles-module__test__3ybTi"};
-
-var ExampleComponent = function ExampleComponent(_ref) {
-  var text = _ref.text;
-  return /*#__PURE__*/React.createElement("div", {
-    className: styles.test
-  }, "Example Component: ", text);
-};
-
-exports.ExampleComponent = ExampleComponent;
 exports.FeatureIcon = FeatureIcon;
 exports.Footer = component$1;
 exports.Header = component$2;
